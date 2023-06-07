@@ -1,4 +1,4 @@
-package com.example.domain.common
+package com.example.testtaskem.common
 
 object Constants {
 
