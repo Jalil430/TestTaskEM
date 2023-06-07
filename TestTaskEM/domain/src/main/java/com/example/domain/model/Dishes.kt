@@ -6,6 +6,6 @@ data class Dishes(
     val price: Int?,
     val weight: Int?,
     val description: String?,
-    val image_url: String?,
+    val imageUrl: String?,
     val tegs: List<String?>?
 )

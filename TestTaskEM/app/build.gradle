@@ -52,10 +52,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-
-    // JsonToKotlinClass
-    implementation 'com.sealwu.jsontokotlin:library:3.7.4'
-
     // AdapterDelegates
     implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.2'
         // Android Extensions and synthetic properties (alternative to findViewById())
