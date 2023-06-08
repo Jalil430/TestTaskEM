@@ -8,6 +8,6 @@ class GetDishesUseCase(
     private val productRepository: ProductRepository
 ) {
 
-    suspend operator fun invoke(): Flow<List<Dishes>> =
+    operator fun invoke(): Flow<List<Dishes>> =
         productRepository.getDishes()
 }

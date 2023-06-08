@@ -9,6 +9,6 @@ class GetCategoriesUseCase(
     private val productRepository: ProductRepository
 ) {
 
-    suspend operator fun invoke(): Flow<List<Categories>> =
+    operator fun invoke(): Flow<List<Categories>> =
         productRepository.getCategories()
 }

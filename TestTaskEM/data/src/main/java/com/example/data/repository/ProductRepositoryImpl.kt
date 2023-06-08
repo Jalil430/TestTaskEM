@@ -18,7 +18,7 @@ class ProductRepositoryImpl @Inject constructor(
     private val apiDishes: RetrofitDishesApi
 ) : ProductRepository {
 
-    override suspend fun getCategories(): Flow<List<Categories>> = flow {
+    override fun getCategories(): Flow<List<Categories>> = flow {
         emit(
             apiCategories.getCategories().categories.map {
                 it.toCategories()
@@ -26,7 +26,7 @@ class ProductRepositoryImpl @Inject constructor(
         )
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun getDishes(): Flow<List<Dishes>> = flow {
+    override fun getDishes(): Flow<List<Dishes>> = flow {
         emit(
             apiDishes.getDishes().dishes.map {
                 it.toDishes()
