@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     // activity_main -> bottom_nav_view
-    <dimen name="bottom_nav_icon_size">0dp</dimen>
-    <dimen name="bottom_nav_size">0dp</dimen>
+    <dimen name="bottom_nav_icon_size">56dp</dimen>
+    <dimen name="bottom_nav_size">85dp</dimen>
 </resources>

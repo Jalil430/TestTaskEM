@@ -20,15 +20,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupBottomNavView()
+    }
+
+    private fun setupBottomNavView() {
         val navView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_home, R.id.navigation_search, R.id.navigation_basket, R.id.navigation_account
-//            )
-//        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 }
