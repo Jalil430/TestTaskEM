@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    // common
+    <dimen name="round_image_view_corner_radius">15dp</dimen>
+
     // activity_main -> bottom_nav_view
     <dimen name="bottom_nav_icon_size">56dp</dimen>
     <dimen name="bottom_nav_size">85dp</dimen>
+
+    // item_top_location_bar
+    <dimen name="top_bar_padding">15dp</dimen>
+    <dimen name="top_bar_location_image_size">30dp</dimen>
+    <dimen name="top_bar_location_image_margin_top">7dp</dimen>
+    <dimen name="top_bar_text_city_size">24sp</dimen>
+    <dimen name="top_bar_text_date_size">19sp</dimen>
+    <dimen name="top_bar_photo_image_size">65dp</dimen>
+
+    // adapter_item_categories
+    <dimen name="categories_item_card_height">190dp</dimen>
+    <dimen name="categories_item_text_width">280dp</dimen>
+    <dimen name="categories_item_text_size">25sp</dimen>
+    <dimen name="categories_item_text_margin">20dp</dimen>
+
+    // popup_item_change_account_photo
+    <dimen name="popup_photo_width">0dp</dimen>
+    <dimen name="popup_photo_height">0dp</dimen>
+    <dimen name="popup_photo_padding">0dp</dimen>
 </resources>

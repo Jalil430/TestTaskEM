@@ -3,7 +3,7 @@ package com.example.testtaskem.di
 import com.example.data.api.RetrofitCategoriesApi
 import com.example.data.api.RetrofitDishesApi
 import com.example.data.repository.ProductRepositoryImpl
-import com.example.testtaskem.common.Constants.BASE_URL
+import com.example.domain.common.Constants.BASE_URL
 import com.example.domain.repository.ProductRepository
 import dagger.Module
 import dagger.Provides
