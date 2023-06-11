@@ -48,7 +48,7 @@
             android:layout_height="@dimen/top_bar_photo_image_size"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:src="@drawable/ic_user_default_photo" />
     </RelativeLayout>
 
 </FrameLayout>

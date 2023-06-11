@@ -1,8 +1,7 @@
 package com.example.testtaskem.view.ui.home_fragment
 
-import android.app.Dialog
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,8 @@ import com.example.domain.usecase.product_usecase.GetCategoriesUseCase
 import com.example.testtaskem.R
 import com.example.testtaskem.databinding.FragmentHomeBinding
 import com.example.testtaskem.databinding.ItemTopLocationBarBinding
-import com.example.testtaskem.databinding.PopupItemChangeAccountPhotoBinding
 import com.example.testtaskem.view.adapter.CategoriesDelegateAdapter
+import com.example.testtaskem.view.dialog.PhotoDialog
 import com.example.testtaskem.viewmodel.home_fragment.HomeViewModel
 import com.example.testtaskem.viewmodel.home_fragment.HomeViewModelFactory
 import com.livermor.delegateadapter.delegate.CompositeDelegateAdapter
@@ -25,7 +24,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment(
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val sharedPreferences: SharedPreferences
 ) : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -87,17 +87,7 @@ class HomeFragment(
     }
 
     private fun showPhotoDialog() {
-        val dialogBinding = PopupItemChangeAccountPhotoBinding.bind(
-            requireView().findViewById(R.id.popup_item_change_account_photo_root)
-        )
-        val photoDialog = Dialog(requireContext())
-        photoDialog.setContentView(R.layout.popup_item_change_account_photo)
-        dialogBinding.apply {
-            ivExit.setOnClickListener {
-                photoDialog.dismiss()
-            }
-        }
-        photoDialog.show()
+        PhotoDialog(sharedPreferences).show(requireFragmentManager(), "PhotoFragment")
     }
 
     override fun onDestroyView() {

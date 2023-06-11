@@ -25,5 +25,5 @@
     // popup_item_change_account_photo
     <dimen name="popup_photo_width">340dp</dimen>
     <dimen name="popup_photo_height">440dp</dimen>
-    <dimen name="popup_photo_padding">20dp</dimen>
+    <dimen name="popup_photo_padding">10dp</dimen>
 </resources>

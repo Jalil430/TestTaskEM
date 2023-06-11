@@ -9,4 +9,7 @@ object Constants {
     */
 
     const val CATEGORIES_API_CALL = "CATEGORIES_API_CALL"
+
+    const val SHARED_PREF = "SHARED_PREF"
+    const val SHARED_PREF_PROFILE_PHOTO = "SHARED_PREF_PROFILE_PHOTO"
 }

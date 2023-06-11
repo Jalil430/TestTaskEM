@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.domain.common.Constants
+import com.example.domain.common.Constants.CATEGORIES_API_CALL
 import com.example.domain.common.NetworkResult
 import com.example.domain.usecase.product_usecase.GetCategoriesUseCase
 import com.example.testtaskem.model.CategoriesState
@@ -15,26 +15,26 @@ import kotlinx.coroutines.flow.onEach
 
 class HomeViewModel(private val getCategoriesUseCase: GetCategoriesUseCase) : ViewModel() {
 
-    private val _categoriesLiveData = MutableLiveData<CategoriesState>()
-    val categoriesLiveData: LiveData<CategoriesState> = _categoriesLiveData
+    private val categoriesLiveData = MutableLiveData<CategoriesState>()
 
     fun categories(): LiveData<CategoriesState> {
         getCategoriesUseCase().onEach { result ->
             when (result) {
                 is NetworkResult.Success -> {
-                    Log.e(Constants.CATEGORIES_API_CALL, "Api call succeeded")
-                    _categoriesLiveData.value = CategoriesState(categories = result.data ?: emptyList())
+                    Log.d(CATEGORIES_API_CALL, "Api call succeeded")
+                    categoriesLiveData.value =
+                        CategoriesState(categories = result.data ?: emptyList())
                 }
 
                 is NetworkResult.Error -> {
-                    Log.e(Constants.CATEGORIES_API_CALL, result.message!!)
-                    _categoriesLiveData.value =
+                    Log.e(CATEGORIES_API_CALL, result.message!!)
+                    categoriesLiveData.value =
                         CategoriesState(error = result.message ?: "Unexpected error")
                 }
 
                 is NetworkResult.Loading -> {
-                    Log.e(Constants.CATEGORIES_API_CALL, "loading...")
-                    _categoriesLiveData.value = CategoriesState(isLoading = true)
+                    Log.d(CATEGORIES_API_CALL, "loading...")
+                    categoriesLiveData.value = CategoriesState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)
@@ -42,8 +42,8 @@ class HomeViewModel(private val getCategoriesUseCase: GetCategoriesUseCase) : Vi
     }
 }
 
-class HomeViewModelFactory(private val getCategoriesUseCase: GetCategoriesUseCase)
-    : ViewModelProvider.Factory {
+class HomeViewModelFactory(private val getCategoriesUseCase: GetCategoriesUseCase) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(getCategoriesUseCase) as T
     }
