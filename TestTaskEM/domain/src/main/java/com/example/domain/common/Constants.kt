@@ -12,4 +12,6 @@ object Constants {
 
     const val SHARED_PREF = "SHARED_PREF"
     const val SHARED_PREF_PROFILE_PHOTO = "SHARED_PREF_PROFILE_PHOTO"
+    const val SHARED_PREF_LOCATION = "SHARED_PREF_LOCATION"
+    const val SHARED_PREF_DATE = "SHARED_PREF_DATE"
 }

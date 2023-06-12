@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LocationAndDateCustomView">
+        <attr name="txtLocation" format="string"/>
+        <attr name="txtDate" format="string"/>
+    </declare-styleable>
+</resources>

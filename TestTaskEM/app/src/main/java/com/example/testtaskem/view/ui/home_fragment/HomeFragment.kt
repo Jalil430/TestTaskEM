@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.domain.usecase.product_usecase.GetCategoriesUseCase
 import com.example.testtaskem.R
 import com.example.testtaskem.databinding.FragmentHomeBinding
-import com.example.testtaskem.databinding.ItemTopLocationBarBinding
+import com.example.testtaskem.databinding.ItemLocationTopBarBinding
 import com.example.testtaskem.view.adapter.CategoriesDelegateAdapter
-import com.example.testtaskem.view.dialog.PhotoDialog
+import com.example.testtaskem.view.ui.dialog.PhotoDialog
 import com.example.testtaskem.viewmodel.home_fragment.HomeViewModel
 import com.example.testtaskem.viewmodel.home_fragment.HomeViewModelFactory
 import com.livermor.delegateadapter.delegate.CompositeDelegateAdapter
@@ -76,13 +77,9 @@ class HomeFragment(
     }
 
     private fun initializeTopBar() {
-        val topBarBinding = ItemTopLocationBarBinding.bind(
-            requireView().findViewById(R.id.item_top_location_bar_root)
-        )
-        topBarBinding.apply {
-            ivPhoto.setOnClickListener {
-                showPhotoDialog()
-            }
+        val ivPhoto = requireView().findViewById<ImageView>(R.id.ivPhoto)
+        ivPhoto.setOnClickListener {
+            showPhotoDialog()
         }
     }
 

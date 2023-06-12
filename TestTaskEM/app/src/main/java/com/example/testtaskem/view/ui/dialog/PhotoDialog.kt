@@ -1,4 +1,4 @@
-package com.example.testtaskem.view.dialog
+package com.example.testtaskem.view.ui.dialog
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
