@@ -1,100 +1,86 @@
 package com.example.testtaskem.common
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.LocationManager
-import android.os.Looper
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.util.Locale
 
 class UserLocationService(
-    private val context: Context,
-    private val activity: Activity
+    private val context: Context
 ) {
 
     private var fusedLocationClient: FusedLocationProviderClient? = null
-    private var permissionId = 999
 
-    fun invoke(callback: (String) -> Unit) {
-        getLastLocation(callback)
+    suspend fun invoke(callback: (String) -> Unit) {
+
+        var lastLocation: Any
+        getLastLocation {
+            lastLocation = it
+            if (lastLocation is List<*>) {
+                callback(
+                    getUserCity(
+                        (lastLocation as List<*>)[0] as Double,
+                        (lastLocation as List<*>)[1] as Double
+                    )
+                )
+            } else {
+                callback(lastLocation.toString())
+            }
+        }
     }
 
-    @SuppressLint("MissingPermission")
-    private fun getLastLocation(callback: (String) -> Unit) {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-
-        if (checkPermissions()) {
-            if (isLocationEnabled()) {
-                fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
-                    if (location == null) {
-                        requestNewLocationData(callback)
-                    } else {
-                        callback(location.latitude.toString() + "")
+    private suspend fun getUserCity(lat: Double, lon: Double): String {
+        val geocoder = Geocoder(context, Locale.getDefault())
+        var addresses: List<Address>?
+        val city = CoroutineScope(Dispatchers.IO).async {
+            addresses = geocoder.getFromLocation(lat, lon, 3)
+            if (addresses!!.isNotEmpty()) {
+                for (i in addresses?.indices!!) {
+                    val address = addresses!![i]
+                    if (address.locality != null && address.locality.isNotEmpty()) {
+                        return@async address.locality
                     }
                 }
             } else {
-                Toast.makeText(context, "Please turn on" + " your location...", Toast.LENGTH_LONG)
-                    .show()
+                return@async ""
             }
-        } else {
-            requestPermissions()
-        }
+        }.await()
+
+        return city.toString()
     }
 
     @SuppressLint("MissingPermission")
-    private fun requestNewLocationData(callback: (String) -> Unit) {
-        val locationRequest = LocationRequest()
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        locationRequest.interval = 5
-        locationRequest.fastestInterval = 0
-        locationRequest.numUpdates = 1
-
+    private suspend fun getLastLocation(callback: suspend (Any) -> Unit) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-        fusedLocationClient!!.requestLocationUpdates(
-            locationRequest,
-            locationCallback(callback),
-            Looper.myLooper()
-        )
-    }
 
-    private fun locationCallback(callback: (String) -> Unit): LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            val lastLocation = locationResult.lastLocation
-            callback(lastLocation?.latitude.toString() + "")
+        if (isLocationEnabled()) {
+            fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
+                if (location != null) {
+                    val latitude = location.latitude
+                    val longitude = location.longitude
+                    CoroutineScope(Dispatchers.Main).launch {
+                        callback(listOf(latitude, longitude))
+                    }
+                }
+            }
+        } else {
+            callback("Не вкл. геолокация")
         }
-    }
-
-    private fun checkPermissions(): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            context,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-            context,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun isLocationEnabled(): Boolean {
         val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
         return locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
-        )
-    }
-
-    private fun requestPermissions() {
-        ActivityCompat.requestPermissions(
-            activity, arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ), permissionId
         )
     }
 }

@@ -5,16 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import com.example.domain.usecase.product_usecase.GetCategoriesUseCase
-import com.example.testtaskem.R
 import com.example.testtaskem.databinding.FragmentHomeBinding
-import com.example.testtaskem.databinding.ItemLocationTopBarBinding
 import com.example.testtaskem.view.adapter.CategoriesDelegateAdapter
-import com.example.testtaskem.view.ui.dialog.PhotoDialog
+import com.example.testtaskem.view.ui.item.LocationTopBarItem
 import com.example.testtaskem.viewmodel.home_fragment.HomeViewModel
 import com.example.testtaskem.viewmodel.home_fragment.HomeViewModelFactory
 import com.livermor.delegateadapter.delegate.CompositeDelegateAdapter
@@ -22,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class HomeFragment(
@@ -48,11 +47,17 @@ class HomeFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializeTopBar()
-        initializeRecyclerView()
+        initTopBarFragment()
+        initRecyclerView()
     }
 
-    private fun initializeRecyclerView() {
+    private fun initTopBarFragment() {
+        val childFragment: Fragment = LocationTopBarItem(sharedPreferences)
+        val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+        transaction.replace(binding.topBarFragmentContainer.id, childFragment).commit()
+    }
+
+    private fun initRecyclerView() {
         binding.apply {
             CoroutineScope(Dispatchers.Main).launch {
                 viewModel.categories().observe(viewLifecycleOwner) { result ->
@@ -74,17 +79,6 @@ class HomeFragment(
                 }
             }
         }
-    }
-
-    private fun initializeTopBar() {
-        val ivPhoto = requireView().findViewById<ImageView>(R.id.ivPhoto)
-        ivPhoto.setOnClickListener {
-            showPhotoDialog()
-        }
-    }
-
-    private fun showPhotoDialog() {
-        PhotoDialog(sharedPreferences).show(requireFragmentManager(), "PhotoFragment")
     }
 
     override fun onDestroyView() {

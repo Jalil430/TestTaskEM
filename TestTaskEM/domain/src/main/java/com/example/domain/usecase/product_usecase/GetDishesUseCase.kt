@@ -1,6 +1,6 @@
 package com.example.domain.usecase.product_usecase
 
-import com.example.domain.common.NetworkResult
+import com.example.domain.common.Resource
 import com.example.domain.model.Dishes
 import com.example.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
@@ -11,13 +11,13 @@ class GetDishesUseCase(
     private val productRepository: ProductRepository
 ) {
 
-    operator fun invoke(): Flow<NetworkResult<List<Dishes>>> = flow {
+    operator fun invoke(): Flow<Resource<List<Dishes>>> = flow {
         try {
-            emit(NetworkResult.Loading())
+            emit(Resource.Loading())
             val dishes = productRepository.getDishes()
-            emit(NetworkResult.Success(dishes))
+            emit(Resource.Success(dishes))
         } catch (e: IOException) {
-            emit(NetworkResult.Error("Couldn't reach server. Check your internet connection"))
+            emit(Resource.Error("Couldn't reach server. Check your internet connection"))
         }
     }
 }

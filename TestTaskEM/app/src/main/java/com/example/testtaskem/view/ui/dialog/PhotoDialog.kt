@@ -9,15 +9,20 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.example.domain.common.Constants.SHARED_PREF_PROFILE_PHOTO
 import com.example.testtaskem.R
 import com.example.testtaskem.databinding.PopupItemChangeAccountPhotoBinding
+import com.example.testtaskem.view.ui.item.ProfilePhotoItem
 
-class PhotoDialog(private val sharedPreferences: SharedPreferences) : DialogFragment() {
+class PhotoDialog(
+    private val sharedPreferences: SharedPreferences,
+    private val changePhotoRepository: ProfilePhotoItem.ChangePhotoRepositoryImpl
+) : DialogFragment() {
 
     private var _binding: PopupItemChangeAccountPhotoBinding? = null
     private val binding get() = _binding!!
@@ -41,6 +46,12 @@ class PhotoDialog(private val sharedPreferences: SharedPreferences) : DialogFrag
                 Glide
                     .with(requireContext())
                     .load(photoUri)
+                    .centerCrop()
+                    .into(binding.ivPhoto)
+            } else {
+                Glide
+                    .with(requireContext())
+                    .load(R.drawable.ic_user_default_photo)
                     .centerCrop()
                     .into(binding.ivPhoto)
             }
@@ -70,8 +81,13 @@ class PhotoDialog(private val sharedPreferences: SharedPreferences) : DialogFrag
     private val galleryResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                val photoUri = result.data?.data
-                binding.ivPhoto.setImageURI(photoUri)
+                val photoUri = result.data?.data!!
+                Glide
+                    .with(requireContext())
+                    .load(photoUri)
+                    .centerCrop()
+                    .into(binding.ivPhoto)
+                changePhotoRepository.changePhoto(photoUri)
 
                 saveProfilePhotoToDatabase(photoUri)
             }

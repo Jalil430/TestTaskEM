@@ -8,8 +8,8 @@
     android:padding="10dp"
     tools:context=".view.ui.home_fragment.HomeFragment">
 
-    <include
-        layout="@layout/item_location_top_bar"
+    <FrameLayout
+        android:id="@+id/topBarFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
