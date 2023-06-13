@@ -13,7 +13,9 @@ import com.example.testtaskem.model.CategoriesState
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class HomeViewModel(private val getCategoriesUseCase: GetCategoriesUseCase) : ViewModel() {
+class HomeViewModel(
+    private val getCategoriesUseCase: GetCategoriesUseCase
+) : ViewModel() {
 
     private val categoriesLiveData = MutableLiveData<CategoriesState>()
 

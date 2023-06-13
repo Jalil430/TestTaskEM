@@ -38,27 +38,23 @@ class ProfilePhotoItem(
         val uriAsString = sharedPreferences.getString(SHARED_PREF_PROFILE_PHOTO, "") ?: ""
         if (uriAsString.isNotBlank()) {
             val photoUri = Uri.parse(uriAsString)
-            ChangePhotoRepositoryImpl().changePhoto(photoUri)
+            changePhoto(photoUri)
         } else {
-            ChangePhotoRepositoryImpl().changePhoto(R.drawable.ic_user_default_photo)
+            changePhoto(R.drawable.ic_user_default_photo)
         }
+
+        val photoDialog = PhotoDialog(sharedPreferences, this)
 
         binding.ivPhoto.setOnClickListener {
-            PhotoDialog(sharedPreferences, ChangePhotoRepositoryImpl()).show(requireFragmentManager(), "PhotoDialog")
+            photoDialog.show(requireFragmentManager(), "PhotoDialog")
         }
     }
 
-    inner class ChangePhotoRepositoryImpl : ChangePhotoRepository {
-        override fun changePhoto(photo: Any) {
-            Glide
-                .with(context)
-                .load(photo)
-                .centerCrop()
-                .into(binding.ivPhoto)
-        }
+    fun changePhoto(photo: Any) {
+        Glide
+            .with(context)
+            .load(photo)
+            .centerCrop()
+            .into(binding.ivPhoto)
     }
-}
-
-interface ChangePhotoRepository {
-    fun changePhoto(photo: Any)
 }

@@ -9,7 +9,7 @@
     tools:context=".view.ui.home_fragment.HomeFragment">
 
     <FrameLayout
-        android:id="@+id/topBarLocationFragmentContainer"
+        android:id="@+id/topBarCategoryFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -26,10 +26,19 @@
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewCategories"
+            android:id="@+id/recyclerViewTypes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDishes"
+            android:layout_below="@id/recyclerViewTypes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+
     </RelativeLayout>
 
 </LinearLayout>

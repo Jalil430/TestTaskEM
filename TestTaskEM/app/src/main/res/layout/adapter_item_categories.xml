@@ -14,6 +14,7 @@
         app:cardElevation="0dp">
 
         <RelativeLayout
+            android:id="@+id/categoriesTab"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
