@@ -11,4 +11,6 @@
 
     <color name="selected_item">#3364E0</color>
     <color name="unselected_item">#A5A9B2</color>
+    <color name="blue">#3364DF</color>
+    <color name="grey">#0F000000</color>
 </resources>

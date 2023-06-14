@@ -31,10 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:backgroundTint="#3364DF"
+        android:backgroundTint="@color/blue"
         android:layout_marginHorizontal="15dp"
         android:paddingVertical="12dp"
-        android:text="change image"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:text="Поменять фото"
         app:cornerRadius="12dp" />
 
 </LinearLayout>

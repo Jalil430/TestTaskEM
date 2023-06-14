@@ -62,25 +62,14 @@ class UserLocationService(
     private suspend fun getLastLocation(callback: suspend (Any) -> Unit) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
-        if (isLocationEnabled()) {
-            fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
-                if (location != null) {
-                    val latitude = location.latitude
-                    val longitude = location.longitude
-                    CoroutineScope(Dispatchers.Main).launch {
-                        callback(listOf(latitude, longitude))
-                    }
+        fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
+            if (location != null) {
+                val latitude = location.latitude
+                val longitude = location.longitude
+                CoroutineScope(Dispatchers.Main).launch {
+                    callback(listOf(latitude, longitude))
                 }
             }
-        } else {
-            callback("Не вкл. геолокация")
         }
-    }
-
-    private fun isLocationEnabled(): Boolean {
-        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-        return locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
-        )
     }
 }

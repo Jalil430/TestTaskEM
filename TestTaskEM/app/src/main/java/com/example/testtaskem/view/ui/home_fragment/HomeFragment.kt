@@ -54,7 +54,7 @@ class HomeFragment(
     private fun initTopBarFragment() {
         val childFragment: Fragment = LocationTopBarItem(sharedPreferences)
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
-        transaction.replace(binding.topBarLocationFragmentContainer.id, childFragment).commit()
+        transaction.replace(binding.topBarLocationFragmentContainer.id, childFragment).commitAllowingStateLoss()
     }
 
     private fun initRecyclerView() {
@@ -80,6 +80,15 @@ class HomeFragment(
             }
         }
     }
+
+//    override fun onStop() {
+//        super.onStop()
+//        val childFragment: Fragment = LocationTopBarItem(sharedPreferences)
+//        val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+//        transaction
+//            .remove(childFragment)
+//            .commit()
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivDishImage2"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:scaleType="fitXY"
+                app:contentPadding="10dp"
+                app:shapeAppearanceOverlay="@style/round_image_view"
+                android:background="@color/grey"
+                tools:src="@drawable/ic_user_default_photo"/>
+
+            <TextView
+                android:id="@+id/tvDishName2"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@id/ivDishImage2"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                tools:text="Рыба с овощами и рисом" />
+
+            <TextView
+                android:id="@+id/tvDishPrice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_below="@id/tvDishName2"
+                android:layout_toEndOf="@id/ivDishImage2"
+                android:layout_marginStart="4dp"
+                android:textSize="15sp"
+                tools:text="799 ₽" />
+
+            <TextView
+                android:id="@+id/tvDishWeight2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDishName2"
+                android:layout_toEndOf="@id/tvDishPrice2"
+                android:textSize="15sp"
+                tools:text=" - 560г" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:layout_gravity="center">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="105dp"
+                android:layout_height="match_parent"
+                app:shapeAppearanceOverlay="@style/round_image_view"
+                android:background="@color/grey"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ivMinus"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_minus"/>
+
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="19sp"
+                    tools:text="1"/>
+
+                <ImageView
+                    android:id="@+id/ivPlus"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_plus"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

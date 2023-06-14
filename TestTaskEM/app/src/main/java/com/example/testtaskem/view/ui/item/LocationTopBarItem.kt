@@ -62,9 +62,9 @@ class LocationTopBarItem(
     }
 
     private fun initProfilePhotoFragment() {
-        val childFragment: Fragment = ProfilePhotoItem(requireContext(), sharedPreferences)
+        val childFragment: Fragment = ProfilePhotoItem(sharedPreferences)
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
-        transaction.replace(binding.ivPhotoContainer.id, childFragment).commit()
+        transaction.replace(binding.ivPhotoContainer.id, childFragment).commitAllowingStateLoss()
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -72,4 +72,13 @@ class LocationTopBarItem(
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         return sdf.format(Date())
     }
+
+//    override fun onStop() {
+//        super.onStop()
+//        val childFragment: Fragment = ProfilePhotoItem(requireContext(), sharedPreferences)
+//        val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+//        transaction
+//            .remove(childFragment)
+//            .commit()
+//    }
 }

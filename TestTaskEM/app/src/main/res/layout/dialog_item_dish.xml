@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/popup_item_change_account_photo_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="34dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="13dp"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:cardElevation="0dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#0A000000"
+            app:shapeAppearanceOverlay="@style/round_image_view" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivDishImage"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerInParent="true"
+            android:padding="12dp"
+            android:src="@drawable/ic_user_default_photo" />
+
+        <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@id/ivDishExit"
+            android:src="@drawable/ic_favorite" />
+
+        <ImageView
+            android:id="@+id/ivDishExit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/ic_exit" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvPDishName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Рыба с овощами и рисом" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvDishPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            tools:text="799 ₽" />
+
+        <TextView
+            android:id="@+id/tvDishWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            tools:text=" - 560г" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvDishDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Рыба маринованная со специями,
+         лимонным соком, соевым соусом и запечeнная
+          в духовке с лучком, томатами и картошечкой
+           под золотистой майонезно-сырной шубкой" />
+
+    <Button
+        android:id="@+id/btnAddToBasket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/blue"
+        android:paddingVertical="12dp"
+        android:text="Добавить в корзину"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        app:cornerRadius="12dp" />
+
+</LinearLayout>

@@ -11,20 +11,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.example.domain.common.Constants.SHARED_PREF_PROFILE_PHOTO
 import com.example.testtaskem.R
-import com.example.testtaskem.databinding.PopupItemChangeAccountPhotoBinding
+import com.example.testtaskem.databinding.DialogItemChangeAccountPhotoBinding
 import com.example.testtaskem.view.ui.item.ProfilePhotoItem
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PhotoDialog(
     private val sharedPreferences: SharedPreferences,
     private val profilePhotoItem: ProfilePhotoItem
 ) : DialogFragment() {
 
-    private var _binding: PopupItemChangeAccountPhotoBinding? = null
+    private var _binding: DialogItemChangeAccountPhotoBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -32,7 +33,7 @@ class PhotoDialog(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = PopupItemChangeAccountPhotoBinding.inflate(inflater, container, false)
+        _binding = DialogItemChangeAccountPhotoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -72,9 +73,11 @@ class PhotoDialog(
     }
 
     private fun changeProfilePhoto() {
-        val iGallery = Intent(Intent.ACTION_PICK)
-        iGallery.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        galleryResultLauncher.launch(iGallery)
+        CoroutineScope(Dispatchers.Main).launch {
+            val iGallery = Intent(Intent.ACTION_PICK)
+            iGallery.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            galleryResultLauncher.launch(iGallery)
+        }
     }
 
     private val galleryResultLauncher =

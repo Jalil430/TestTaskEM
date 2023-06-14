@@ -18,23 +18,89 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBar2"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:visibility="gone" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewTypes"
-            android:layout_width="match_parent"
+        <HorizontalScrollView
+            android:id="@+id/chipsScrollView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"/>
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:selectionRequired="true"
+                    app:checkedChip="@id/chipWholeMenu"
+                    app:singleSelection="true"
+                    app:singleLine="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipWholeMenu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        app:chipSurfaceColor="@color/checked_chip_surface_selector"
+                        app:chipCornerRadius="9dp"
+                        android:layout_margin="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/checked_chip_text_selector"
+                        android:text="Все меню"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSalads"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        app:chipSurfaceColor="@color/checked_chip_surface_selector"
+                        app:chipCornerRadius="9dp"
+                        android:layout_margin="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/checked_chip_text_selector"
+                        android:text="Салаты"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipWithRice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        app:chipSurfaceColor="@color/checked_chip_surface_selector"
+                        app:chipCornerRadius="9dp"
+                        android:layout_margin="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/checked_chip_text_selector"
+                        android:text="С рисом"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipWithFish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        app:chipSurfaceColor="@color/checked_chip_surface_selector"
+                        app:chipCornerRadius="9dp"
+                        android:layout_margin="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/checked_chip_text_selector"
+                        android:text="С рыбой"/>
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewDishes"
-            android:layout_below="@id/recyclerViewTypes"
+            android:layout_below="@id/chipsScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:spanCount="3"

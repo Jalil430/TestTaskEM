@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.findNavController
+import com.example.testtaskem.R
 import com.example.testtaskem.databinding.ItemCategoryTopBarBinding
 
 class CategoryTopBarItem(
-    private val sharedPreferences: SharedPreferences,
-    private val categoryName: String?,
-    private val callback: () -> Unit
+    private val sharedPreferences: SharedPreferences
 ) : Fragment() {
 
     private var _binding: ItemCategoryTopBarBinding? = null
@@ -32,14 +32,17 @@ class CategoryTopBarItem(
 
         initProfilePhotoFragment()
         binding.apply {
+            val categoryName = arguments?.getString("categoryName")
             tvCategoryName.text = categoryName
-            ivExit.setOnClickListener { callback.invoke() }
+            ivExit.setOnClickListener {
+                requireView().findNavController().navigate(R.id.action_navigation_category_to_navigation_home)
+            }
         }
     }
 
     private fun initProfilePhotoFragment() {
-        val childFragment: Fragment = ProfilePhotoItem(requireContext(), sharedPreferences)
+        val childFragment: Fragment = ProfilePhotoItem(sharedPreferences)
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
-        transaction.replace(binding.ivPhotoContainer.id, childFragment).commit()
+        transaction.replace(binding.ivPhotoContainer.id, childFragment).commitAllowingStateLoss()
     }
 }

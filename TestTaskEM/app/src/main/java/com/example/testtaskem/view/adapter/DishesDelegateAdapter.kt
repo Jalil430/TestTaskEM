@@ -1,50 +1,37 @@
 package com.example.testtaskem.view.adapter
 
 import android.content.Context
-import android.os.Bundle
-import android.view.View
-import androidx.navigation.findNavController
+import android.content.SharedPreferences
+import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
-import com.example.domain.common.Constants
-import com.example.domain.model.Categories
 import com.example.domain.model.Dishes
-import com.example.testtaskem.R
-import com.example.testtaskem.databinding.AdapterItemCategoriesBinding
+import com.example.domain.usecase.basket_usecase.InsertBasketDishesUseCase
 import com.example.testtaskem.databinding.AdapterItemDishesBinding
+import com.example.testtaskem.view.ui.dialog.DishDialog
 import com.livermor.delegateadapter.delegate.ViewBindingDelegateAdapter
 
 class DishesDelegateAdapter(
     private val context: Context,
-    private val view: View
+    private val sharedPreferences: SharedPreferences,
+    private val insertBasketDishesUseCase: InsertBasketDishesUseCase,
+    private val fragmentManager: FragmentManager
 ) : ViewBindingDelegateAdapter<
         Dishes,
-        AdapterItemDishesBinding>(AdapterItemDishesBinding::inflate){
+        AdapterItemDishesBinding>(AdapterItemDishesBinding::inflate) {
 
     override fun AdapterItemDishesBinding.onBind(item: Dishes) {
+        val dishDialog = DishDialog(sharedPreferences, insertBasketDishesUseCase, item)
 
+        rootDish.setOnClickListener {
+            dishDialog.show(fragmentManager, "DishDialog")
+        }
 
-
+        tvDishName.text = item.name
         Glide
             .with(context)
             .load(item.imageUrl)
-            .centerCrop()
+            .fitCenter()
             .into(ivDishImage)
-        tvDishName.text = item.name
-
-
-
-
-//        categoriesTab.setOnClickListener {
-//            val categoryNameBundle = Bundle()
-//            categoryNameBundle.putString(Constants.BUNDLE_CATEGORY_NAME, item.name)
-//            view.findNavController().navigate(R.id.action_navigation_home_to_navigation_category, categoryNameBundle)
-//        }
-//        tvCategoryName.text = item.name
-//        Glide
-//            .with(context)
-//            .load(item.imageUrl)
-//            .centerCrop()
-//            .into(ivCategoryImage)
     }
 
     override fun isForViewType(item: Any) = item is Dishes

@@ -44,20 +44,18 @@ class MainActivity : AppCompatActivity() {
             )
         ) {
             CoroutineScope(Dispatchers.Main).launch {
-                getLocation { city ->
-                    sharedPreferences!!.edit()
-                        .putString(SHARED_PREF_LOCATION, city)
-                        .apply()
-                }
+                getLocation()
             }
         }
 
         setupBottomNavView()
     }
 
-    private suspend fun getLocation(callback: (String) -> Unit) {
+    private suspend fun getLocation() {
             UserLocationService(this@MainActivity).invoke{ city ->
-                callback(city)
+                sharedPreferences!!.edit()
+                    .putString(SHARED_PREF_LOCATION, city)
+                    .apply()
             }
     }
 
@@ -81,11 +79,7 @@ class MainActivity : AppCompatActivity() {
                     .apply()
             } else {
                 CoroutineScope(Dispatchers.IO).launch {
-                    getLocation { city ->
-                        sharedPreferences!!.edit()
-                            .putString(SHARED_PREF_LOCATION, city)
-                            .apply()
-                    }
+                    getLocation()
                 }
             }
         }
