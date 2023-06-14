@@ -54,6 +54,7 @@ class CategoryFragment(
         ViewCompat.setTranslationZ(requireView(), 100f)
 
         initTopBarFragment()
+        initRecyclerViews()
     }
 
     private fun initTopBarFragment() {
